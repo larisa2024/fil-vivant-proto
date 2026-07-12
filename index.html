@@ -118,6 +118,7 @@
 
 <nav class="sans">
   <button class="active" data-v="accueil">🏠 Accueil</button>
+  <button data-v="espace">🔑 Mon espace</button>
   <button data-v="meteo">🌦️ Météo du jour</button>
   <button data-v="journal">📖 Mon journal</button>
   <button data-v="memoire">🗝️ Mémoire</button>
@@ -198,6 +199,37 @@
       <h3>Questions fréquentes</h3>
       <div class="sans" id="faq"></div>
       <a class="btn ghost sans" href="faq.html" style="font-size:14px">Lire les 45 questions-réponses</a>
+    </div>
+  </section>
+
+  <!-- MON ESPACE (démonstration) -->
+  <section class="view" id="v-espace">
+    <h2>Mon espace</h2>
+    <p class="sub">Un espace par personne, ouvert par votre phrase secrète : c'est elle qui fabrique votre clé de chiffrement.</p>
+    <div id="esp-off">
+      <div class="grid sans" style="margin:0 0 16px">
+        <div class="svc" style="border-top:3px solid var(--accent)">
+          <h3>Créer mon espace</h3>
+          <label>Votre prénom</label><input id="esp-nom" type="text" placeholder="Emma">
+          <label>Votre phrase secrète</label><input id="esp-p1" type="password" placeholder="Quatre mots faciles à retenir…">
+          <button class="btn" onclick="creerEspace()">Ouvrir mon espace</button>
+        </div>
+        <div class="svc">
+          <h3>J'ai déjà un espace</h3>
+          <label>Votre phrase secrète</label><input id="esp-p2" type="password" placeholder="Votre phrase secrète">
+          <button class="btn ghost" onclick="connecterEspace()">Me connecter</button>
+          <p style="font-size:13px;color:var(--muted);margin-top:14px">Votre espace vous suit sur tous vos appareils, toujours chiffré.</p>
+        </div>
+      </div>
+      <div class="notice sans">🔑 Votre phrase secrète est votre clé : sans elle, personne, pas même nous, ne peut ouvrir votre espace. Perdue, votre mémoire devient indéchiffrable ; un dépôt de clé chez un notaire peut être organisé (formule 4).</div>
+    </div>
+    <div id="esp-on" style="display:none">
+      <div class="card">
+        <h3 id="esp-titre">Bienvenue</h3>
+        <p class="sans" style="font-size:14px;color:var(--muted);margin-top:8px">Votre espace est ouvert (démonstration : sur cet appareil seulement). Dans la version complète, chaque page, Météo, Journal, Mémoire, Projections, Créations, écrit dans votre espace chiffré, où que vous soyez.</p>
+        <button class="btn" onclick="go('meteo')">Poser ma météo du jour</button>
+        <button class="btn ghost sans" onclick="fermerEspace()">Fermer mon espace</button>
+      </div>
     </div>
   </section>
 
@@ -403,11 +435,15 @@ function saveProche(){
 function inscrire(){
   const nom=document.getElementById('c-nom').value.trim(), email=document.getElementById('c-email').value.trim();
   if(!nom||!email){alert('Le nom et l\'email suffisent, le reste est libre 🙂');return}
+  const adresse=document.getElementById('c-adresse').value.trim(), tel=document.getElementById('c-tel').value.trim(), libre=document.getElementById('c-libre').value.trim();
   const e=S('mv_contacts');
-  e.unshift({nom,email,adresse:document.getElementById('c-adresse').value.trim(),tel:document.getElementById('c-tel').value.trim(),libre:document.getElementById('c-libre').value.trim(),d:new Date().toISOString()});
+  e.unshift({nom,email,adresse,tel,libre,d:new Date().toISOString()});
   P('mv_contacts',e);
+  const to=['larisa','kr'].join('.')+String.fromCharCode(64)+['interargus','com'].join('.');
+  const corps='Nom : '+nom+'\nEmail : '+email+'\nAdresse : '+adresse+'\nTéléphone : '+tel+'\n\n'+libre;
   ['c-nom','c-email','c-adresse','c-tel','c-libre'].forEach(i=>document.getElementById(i).value='');
-  alert('Merci '+nom+', vous êtes sur la liste. En production : email de bienvenue via le workflow n8n.');
+  alert('Merci '+nom+' : votre messagerie s\'ouvre avec votre inscription pré-remplie, il ne reste qu\'à envoyer.');
+  window.location.href='mailto:'+to+'?subject='+encodeURIComponent('Liste d\'attente Fil Vivant')+'&body='+encodeURIComponent(corps);
 }
 /* ---------- rendus ---------- */
 function list(el,arr,tpl,vide){
@@ -443,6 +479,24 @@ document.getElementById('faq').innerHTML=FAQ.map(([q,r])=>`<details><summary>${q
 /* ---------- démo ---------- */
 const kd=new Date(); kd.setFullYear(kd.getFullYear()-10);
 document.getElementById('kicker').textContent='Qu\'avez-vous fait le '+kd.toLocaleDateString('fr-FR',{day:'numeric',month:'long',year:'numeric'})+' ?';
+function creerEspace(){
+  const n=document.getElementById('esp-nom').value.trim(), ph=document.getElementById('esp-p1').value.trim();
+  if(!n||!ph){alert('Un prénom et une phrase secrète 🙂');return}
+  P('mv_espace',{n}); majEspace();
+}
+function connecterEspace(){
+  if(!document.getElementById('esp-p2').value.trim()){alert('Votre phrase secrète 🙂');return}
+  if(!localStorage.getItem('mv_espace')){alert('Aucun espace sur cet appareil : créez-le d\'abord.');return}
+  majEspace();
+}
+function fermerEspace(){localStorage.removeItem('mv_espace'); majEspace();}
+function majEspace(){
+  const e=JSON.parse(localStorage.getItem('mv_espace')||'null');
+  document.getElementById('esp-off').style.display=e?'none':'block';
+  document.getElementById('esp-on').style.display=e?'block':'none';
+  if(e)document.getElementById('esp-titre').textContent='Bienvenue, '+e.n;
+}
+majEspace();
 function demo(){alert('Disponible dans la version complète : ce prototype démontre le parcours.')}
 function rdv(){alert('En production : agenda Cal.com : 30 minutes gratuites, en visio, jamais un robot.')}
 renderAll();
