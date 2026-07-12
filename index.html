@@ -11,7 +11,7 @@
     --bg:#f5eedd; --card:#fffdf6; --ink:#231c12; --muted:#7d7161;
     --accent:#a9772f; --accent-dark:#7d5716; --line:#e2d5ba;
     --green:#4e7350; --soft:#eee3c9;
-    --cire:#a63b26; --cire-dark:#7e2b1a; --night:#231c12; --paper:#f5eedd;
+    --cire:#a63b26; --cire-dark:#7e2b1a; --night:#3a342b; --paper:#f5eedd;
   }
   *{box-sizing:border-box;margin:0;padding:0}
   body{font-family:Georgia,'Times New Roman',serif;background:var(--bg);color:var(--ink);line-height:1.6}
@@ -80,6 +80,10 @@
   .verrou{background:var(--cire);color:#fff;border-radius:14px;text-align:center;padding:30px 24px;margin:16px 0 28px}
   .verrou .big{font-size:26px;line-height:1.3}
   .verrou p{color:#f3d9d0;font-size:14.5px;margin-top:10px;max-width:640px;margin-left:auto;margin-right:auto}
+  .manifesto{border-left:3px solid var(--accent);background:var(--card);border-radius:0 12px 12px 0;padding:22px 26px;margin:8px 0 4px}
+  .manifesto p{font-size:16.5px;line-height:1.7}
+  .manifesto p+p{margin-top:10px}
+
   .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px;margin:26px 0}
   .svc{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px}
   .svc .ico{font-size:26px;margin-bottom:8px}
@@ -140,6 +144,12 @@
       <div class="w"><h3>Un jour, elle pourra vous être rendue</h3><p>Une maladie, un accident, ou simplement le grand âge peuvent brouiller ce qui vous appartient. Ce journal est d'abord écrit pour vous-même : vous choisissez à l'avance qui pourra vous le relire à voix haute.</p></div>
     </div>
 
+    <div class="manifesto">
+      <p>Gardez les émotions, les ressentis, les espoirs : les événements ne sont que la surface d'une vie.</p>
+      <p>Le fil tient vos trois temps ensemble : le journal au présent, la mémoire vers le passé, les projections vers l'avenir. Porté par le moment, sans jamais quitter le présent.</p>
+      <p>Et il transmet qui vous étiez et qui vous êtes, tels que vous l'avez écrit : à l'ère des algorithmes qui reformulent tout, vos mots restent vos mots.</p>
+    </div>
+
     <div class="grid sans">
       <div class="svc"><div class="ico">📖</div><h3>Mon journal</h3><p>Écrivez quand vous voulez, ce que vous voulez. Chaque entrée est datée du jour, automatiquement.</p></div>
       <div class="svc"><div class="ico">🗝️</div><h3>Mémoire</h3><p>Un souvenir d'enfance vous revient ? Datez-le à sa vraie date : la date d'écriture s'ajoute d'elle-même.</p></div>
@@ -151,7 +161,7 @@
 
     <div class="verrou">
       <div class="big">Personne ne peut se souvenir à votre place.</div>
-      <p class="sans">Écrire votre vie : cela ne se délègue pas. La garder : c'est notre seul métier, sans pouvoir en lire une ligne. En France et en Suisse, datée automatiquement, conservée 99 ans.</p>
+      <p class="sans">Écrire votre vie : cela ne se délègue pas. Notre métier : la garder sans pouvoir la lire, la retravailler avec vous quand vous nous ouvrez la porte, la transmettre au jour et aux personnes que vous avez choisis. En France et en Suisse, datée automatiquement, conservée 99 ans.</p>
     </div>
 
     <div class="pledge sans">
