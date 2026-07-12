@@ -118,6 +118,7 @@
 
 <nav class="sans">
   <button class="active" data-v="accueil">🏠 Accueil</button>
+  <button data-v="meteo">🌦️ Météo du jour</button>
   <button data-v="journal">📖 Mon journal</button>
   <button data-v="memoire">🗝️ Mémoire</button>
   <button data-v="projections">🧭 Projections</button>
@@ -145,9 +146,9 @@
     </div>
 
     <div class="manifesto">
-      <p>Gardez les émotions, les ressentis, les espoirs : les événements ne sont que la surface d'une vie.</p>
-      <p>Le fil tient vos trois temps ensemble : le journal au présent, la mémoire vers le passé, les projections vers l'avenir. Porté par le moment, sans jamais quitter le présent.</p>
-      <p>Et il transmet qui vous étiez et qui vous êtes, tels que vous l'avez écrit : à l'ère des algorithmes qui reformulent tout, vos mots restent vos mots.</p>
+      <p>Les événements sont l'écorce d'une vie ; la sève, ce sont les émotions, les ressentis, les espérances. C'est elle que l'on garde ici.</p>
+      <p>Un fil relie vos trois temps : la mémoire pour le passé, le journal pour le présent, les projections pour l'avenir. On s'y laisse porter d'une rive à l'autre, sans jamais cesser d'habiter le présent.</p>
+      <p>Et ce fil transmettra qui vous fûtes et qui vous êtes, tels que vous l'avez écrit : face aux algorithmes qui reformulent tout, vos mots restent vos mots.</p>
     </div>
 
     <div class="grid sans">
@@ -195,6 +196,23 @@
       <div class="sans" id="faq"></div>
       <p class="sans" style="font-size:13px;color:var(--muted);margin-top:10px">45 questions-réponses au total dans la FAQ complète.</p>
     </div>
+  </section>
+
+  <!-- METEO DU JOUR -->
+  <section class="view" id="v-meteo">
+    <h2>Météo du jour</h2>
+    <p class="sub">Nous sommes le <span id="mt-date"></span>. Quel temps fait-il en vous, et que souhaitez-vous à cette journée ?</p>
+    <div class="card">
+      <label>Ma météo intérieure</label>
+      <div class="moods" id="skies">
+        <button data-s="☀️">☀️</button><button data-s="🌤️">🌤️</button><button data-s="⛅" class="sel">⛅</button>
+        <button data-s="🌧️">🌧️</button><button data-s="⛈️">⛈️</button><button data-s="🌈">🌈</button>
+      </div>
+      <label>Mes souhaits pour aujourd'hui</label>
+      <textarea id="mt-txt" placeholder="Ce que je souhaite à cette journée, aux autres, à moi-même…"></textarea>
+      <button class="btn" onclick="saveMeteo()">Poser ma météo</button>
+    </div>
+    <div id="mt-list"></div>
   </section>
 
   <!-- JOURNAL -->
@@ -324,6 +342,20 @@ document.querySelectorAll('#moods button').forEach(b=>b.onclick=()=>{
   b.classList.add('sel'); mood=b.dataset.m;
 });
 
+/* ---------- météo du jour ---------- */
+let sky='⛅';
+document.querySelectorAll('#skies button').forEach(b=>b.onclick=()=>{
+  document.querySelectorAll('#skies button').forEach(x=>x.classList.remove('sel'));
+  b.classList.add('sel'); sky=b.dataset.s;
+});
+document.getElementById('mt-date').textContent=new Date().toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
+function saveMeteo(){
+  const t=document.getElementById('mt-txt').value.trim();
+  if(!t){alert('Un souhait, même minuscule 🙂');return}
+  const e=S('mv_meteo'); e.unshift({t,sky,d:new Date().toISOString()}); P('mv_meteo',e);
+  document.getElementById('mt-txt').value=''; renderAll();
+}
+
 /* ---------- journal ---------- */
 function saveJournal(){
   const t=document.getElementById('j-txt').value.trim();
@@ -380,6 +412,8 @@ function list(el,arr,tpl,vide){
     `<div class="empty"><div class="big">🕊️</div><p>${vide}</p></div>`;
 }
 function renderAll(){
+  list('mt-list',S('mv_meteo'),x=>`<div class="entry"><div class="meta sans"><span class="mood">${x.sky}</span><span>${fdate(x.d)}</span><span class="tag">Souhaits du jour</span></div><p>${esc(x.t)}</p></div>`,
+    'Aucune météo posée pour l\'instant. Quel temps fait-il en vous aujourd\'hui ?');
   list('j-list',S('mv_journal'),x=>`<div class="entry"><div class="meta sans"><span class="mood">${x.mood}</span><span>${fdate(x.d)}</span></div><p>${esc(x.t)}</p></div>`,
     'Votre journal est encore vide.<br>Un souvenir, une pensée, un moment ordinaire qui compte.');
   list('m-list',S('mv_memoire'),x=>`<div class="entry"><div class="meta sans"><span class="tag">🗝️ Souvenir du ${fshort(x.ds)}</span><span>écrit le ${fdate(x.d)}</span></div><p>${esc(x.t)}</p></div>`,
