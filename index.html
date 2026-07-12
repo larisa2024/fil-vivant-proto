@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Publication provisoire : retirer noindex à la mise en ligne officielle (après INPI + juriste) -->
+<meta name="robots" content="noindex, nofollow">
+<title>Mémoire Vivante — Votre vie, écrite jour après jour</title>
+<style>
+  :root{
+    --bg:#faf7f2; --card:#ffffff; --ink:#2b2620; --muted:#8a7f70;
+    --accent:#b08d57; --accent-dark:#8a6a3b; --line:#e8e1d5;
+    --green:#5a7d5a; --soft:#f3ede2;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:Georgia,'Times New Roman',serif;background:var(--bg);color:var(--ink);line-height:1.6}
+  .sans{font-family:-apple-system,'Segoe UI',Helvetica,Arial,sans-serif}
+
+  header{background:var(--card);border-bottom:1px solid var(--line);padding:18px 28px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
+  .brand{font-size:22px;letter-spacing:.5px;cursor:pointer}
+  .brand em{color:var(--accent);font-style:normal}
+  .badge{font-size:12px;color:var(--green);border:1px solid #cdd9cd;background:#eef4ee;border-radius:20px;padding:4px 12px}
+
+  nav{display:flex;gap:4px;background:var(--card);border-bottom:1px solid var(--line);padding:0 28px;overflow-x:auto}
+  nav button{font-size:14px;padding:14px 14px;background:none;border:none;border-bottom:3px solid transparent;cursor:pointer;color:var(--muted);white-space:nowrap}
+  nav button.active{color:var(--ink);border-bottom-color:var(--accent);font-weight:600}
+
+  main{max-width:880px;margin:0 auto;padding:32px 20px 90px}
+  .view{display:none}.view.active{display:block}
+
+  h2{font-weight:normal;font-size:26px;margin-bottom:6px}
+  h3{font-weight:600;font-size:16px;margin-bottom:4px}
+  .sub{color:var(--muted);font-size:15px;margin-bottom:24px}
+
+  .card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:22px;margin-bottom:16px}
+
+  textarea,input,select{width:100%;border:1px solid var(--line);border-radius:8px;padding:12px;font-family:inherit;font-size:15px;background:#fffdf9;color:var(--ink)}
+  textarea{min-height:120px;resize:vertical}
+  label{display:block;font-size:13px;color:var(--muted);margin:14px 0 6px;text-transform:uppercase;letter-spacing:.8px}
+
+  .moods{display:flex;gap:8px;flex-wrap:wrap}
+  .moods button{font-size:22px;background:var(--soft);border:2px solid transparent;border-radius:10px;padding:8px 12px;cursor:pointer}
+  .moods button.sel{border-color:var(--accent);background:#fff}
+
+  .btn{display:inline-block;background:var(--accent);color:#fff;border:none;border-radius:8px;padding:12px 26px;font-size:15px;cursor:pointer;font-family:inherit;margin-top:18px;text-decoration:none}
+  .btn:hover{background:var(--accent-dark)}
+  .btn.ghost{background:none;color:var(--accent-dark);border:1px solid var(--accent)}
+  .btn.small{padding:7px 14px;font-size:13px;margin-top:0}
+
+  .entry{border-left:3px solid var(--accent);padding:14px 18px;background:var(--card);border-radius:0 10px 10px 0;margin-bottom:14px}
+  .entry .meta{font-size:12px;color:var(--muted);display:flex;gap:12px;margin-bottom:6px;align-items:center;flex-wrap:wrap}
+  .entry .mood{font-size:18px}
+  .entry p{font-size:15px;white-space:pre-wrap}
+  .tag{font-size:11px;background:var(--soft);border-radius:12px;padding:2px 10px;color:var(--accent-dark)}
+  .tag.done{background:#eef4ee;color:var(--green)}
+
+  .empty{text-align:center;padding:40px 20px;color:var(--muted)}
+  .empty .big{font-size:40px;margin-bottom:12px}
+
+  .notice{font-size:13px;background:#f4f0e6;border:1px solid var(--line);border-radius:8px;padding:12px 16px;color:var(--muted);margin-top:16px}
+  .notice strong{color:var(--accent-dark)}
+
+  .attach{display:flex;gap:10px;margin-top:10px;flex-wrap:wrap}
+  .attach button{font-size:13px;background:var(--soft);border:1px dashed var(--muted);border-radius:8px;padding:8px 14px;color:var(--muted);cursor:pointer}
+
+  /* Accueil */
+  .hero{text-align:center;padding:30px 10px 10px}
+  .hero h1{font-weight:normal;font-size:34px;line-height:1.25}
+  .hero h1 em{color:var(--accent);font-style:normal}
+  .hero p{color:var(--muted);max-width:560px;margin:14px auto 0;font-size:16px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px;margin:26px 0}
+  .svc{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px}
+  .svc .ico{font-size:26px;margin-bottom:8px}
+  .svc p{font-size:13.5px;color:var(--muted)}
+  .svc .devis{display:inline-block;margin-top:8px;font-size:11px;background:var(--soft);border-radius:12px;padding:2px 10px;color:var(--accent-dark)}
+  .pledge{border:1px solid var(--accent);background:#fffdf9;border-radius:12px;padding:20px 22px;margin:10px 0 24px}
+  .pledge h3{color:var(--accent-dark)}
+  details{border-bottom:1px solid var(--line);padding:10px 4px}
+  details summary{cursor:pointer;font-size:15px;font-weight:600}
+  details p{font-size:14px;color:var(--muted);padding:8px 0 4px}
+
+  /* Tarifs */
+  .plans{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
+  .plan{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:20px;display:flex;flex-direction:column}
+  .plan .num{font-size:12px;color:var(--muted);letter-spacing:1px;text-transform:uppercase}
+  .plan h3{font-size:17px;margin:6px 0}
+  .plan p{font-size:13.5px;color:var(--muted);flex:1}
+  .plan .price{margin-top:12px;font-size:14px;color:var(--accent-dark);font-weight:600}
+
+  .row{display:flex;gap:12px;flex-wrap:wrap}
+  .row > *{flex:1;min-width:160px}
+
+  footer{position:fixed;bottom:0;left:0;right:0;background:var(--card);border-top:1px solid var(--line);padding:8px 28px;font-size:12px;color:var(--muted);display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="brand" onclick="go('accueil')">Mémoire <em>Vivante</em></div>
+  <div class="badge sans">🔒 Chiffré de bout en bout · Hébergé en France 🇫🇷 & Suisse 🇨🇭 · RGPD</div>
+</header>
+
+<nav class="sans">
+  <button class="active" data-v="accueil">🏠 Accueil</button>
+  <button data-v="journal">📖 Mon journal</button>
+  <button data-v="memoire">🗝️ Mémoire</button>
+  <button data-v="projections">🧭 Projections</button>
+  <button data-v="creations">✒️ Créations</button>
+  <button data-v="proches">👥 Mes proches</button>
+  <button data-v="tarifs">💳 Services & tarifs</button>
+</nav>
+
+<main>
+
+  <!-- ACCUEIL -->
+  <section class="view active" id="v-accueil">
+    <div class="hero">
+      <h1>Votre vie, écrite <em>jour après jour</em>.</h1>
+      <p>Un coffre de mémoire personnel : votre journal, vos souvenirs, vos projets et vos créations — datés automatiquement, chiffrés, à vous pour toujours.</p>
+      <button class="btn" onclick="go('journal')">Commencer mon journal</button>
+      <button class="btn ghost" onclick="rdv()">Rendez-vous 30 min gratuit</button>
+    </div>
+
+    <div class="grid sans">
+      <div class="svc"><div class="ico">📖</div><h3>Mon journal</h3><p>Écrivez quand vous voulez, ce que vous voulez. Chaque entrée est datée du jour, automatiquement.</p></div>
+      <div class="svc"><div class="ico">🗝️</div><h3>Mémoire</h3><p>Un souvenir d'enfance vous revient ? Datez-le à sa vraie date — la date d'écriture s'ajoute d'elle-même.</p></div>
+      <div class="svc"><div class="ico">🧭</div><h3>Projections</h3><p>Vos projets d'avenir : un plan d'action daté du jour, avec la date de réalisation que vous visez.</p></div>
+      <div class="svc"><div class="ico">✒️</div><h3>Créations</h3><p>Un livre, vos mémoires, une histoire inventée — avec la date de début d'écriture et tout le temps qu'il faudra.</p></div>
+      <div class="svc"><div class="ico">🕊️</div><h3>Transmission</h3><p>Transmettre tout ou partie de votre mémoire à vos proches — de votre vivant, après, ou jamais. Conditions définies en rendez-vous visio avec un notaire partenaire et notre responsable technique.</p><span class="devis">Sur devis</span></div>
+      <div class="svc"><div class="ico">✨</div><h3>Jumeau numérique</h3><p>Un avatar conversationnel nourri uniquement de ce que vous avez confié. Encadré par un comité éthique, jamais activé sans votre décision écrite.</p><span class="devis">Sur devis</span></div>
+    </div>
+
+    <div class="pledge sans">
+      <h3>Ce que nous n'automatiserons jamais</h3>
+      <p style="font-size:14px;color:var(--muted);margin-top:6px">
+        1. Le rendez-vous visio qui définit vos conditions particulières de transmission — toujours avec un notaire et notre responsable technique.<br>
+        2. Le rendez-vous de 30 minutes, gratuit, pour préciser de vive voix les services et les tarifs.<br>
+        C'est un engagement public.
+      </p>
+    </div>
+
+    <div class="card">
+      <h3>Rejoindre la liste d'attente</h3>
+      <p class="sub" style="margin-bottom:4px">Nous vous prévenons à l'ouverture — et vous pouvez tout nous dire, ou rien.</p>
+      <div class="row sans">
+        <div><label>Nom</label><input id="c-nom" type="text" placeholder="Votre nom"></div>
+        <div><label>Email</label><input id="c-email" type="text" placeholder="vous@exemple.fr"></div>
+      </div>
+      <div class="row sans">
+        <div><label>Adresse</label><input id="c-adresse" type="text" placeholder="Ville, pays"></div>
+        <div><label>Téléphone</label><input id="c-tel" type="text" placeholder="Facultatif"></div>
+      </div>
+      <label>Ce que vous jugez utile de nous dire</label>
+      <textarea id="c-libre" style="min-height:90px" placeholder="Votre situation, votre motivation, une question… champ entièrement libre."></textarea>
+      <button class="btn" onclick="inscrire()">M'inscrire</button>
+      <div class="notice sans">💬 Une question ? Notre assistant répond aux questions simples, 24 h/24. Pour le reste : laissez un message — réponse à votre reconnexion — ou réservez vos 30 minutes.</div>
+    </div>
+
+    <div class="card">
+      <h3>Questions fréquentes</h3>
+      <div class="sans" id="faq"></div>
+      <p class="sans" style="font-size:13px;color:var(--muted);margin-top:10px">45 questions-réponses au total dans la FAQ complète.</p>
+    </div>
+  </section>
+
+  <!-- JOURNAL -->
+  <section class="view" id="v-journal">
+    <h2>Mon journal</h2>
+    <p class="sub">Écrivez quand vous voulez, ce que vous voulez. La date du jour s'ajoute toute seule. Rappel chaque soir à 21 h.</p>
+    <div class="card">
+      <textarea id="j-txt" placeholder="Aujourd'hui…"></textarea>
+      <div class="attach sans">
+        <button onclick="demo()">📷 Ajouter une photo</button>
+        <button onclick="demo()">🎬 Ajouter une vidéo</button>
+      </div>
+      <label>Comment vous sentez-vous ?</label>
+      <div class="moods" id="moods">
+        <button data-m="😊">😊</button><button data-m="🥰">🥰</button><button data-m="😌" class="sel">😌</button>
+        <button data-m="😢">😢</button><button data-m="😤">😤</button><button data-m="🤔">🤔</button>
+      </div>
+      <button class="btn" onclick="saveJournal()">Confier à ma mémoire</button>
+      <div class="notice sans">🔒 Chiffré sur votre appareil avant tout envoi. <strong>Personne</strong> — pas même nous — ne peut le lire.</div>
+    </div>
+    <div id="j-list"></div>
+  </section>
+
+  <!-- MEMOIRE -->
+  <section class="view" id="v-memoire">
+    <h2>Mémoire</h2>
+    <p class="sub">Un événement d'avant vous revient ? Donnez-lui sa vraie date. La date d'écriture s'ajoute automatiquement.</p>
+    <div class="card">
+      <label>Date du souvenir</label>
+      <input id="m-date" type="date" class="sans" style="max-width:220px">
+      <label>Le souvenir</label>
+      <textarea id="m-txt" placeholder="Ce jour-là…"></textarea>
+      <div class="attach sans"><button onclick="demo()">📷 Photo d'époque</button></div>
+      <button class="btn" onclick="saveMemoire()">Garder ce souvenir</button>
+    </div>
+    <div id="m-list"></div>
+  </section>
+
+  <!-- PROJECTIONS -->
+  <section class="view" id="v-projections">
+    <h2>Projections</h2>
+    <p class="sub">Votre plan d'avenir, daté d'aujourd'hui — avec la date de réalisation que vous visez.</p>
+    <div class="card">
+      <label>Mon projet / plan d'action</label>
+      <textarea id="p-txt" placeholder="Ce que je veux faire, et comment…"></textarea>
+      <label>Date de réalisation visée</label>
+      <input id="p-date" type="date" class="sans" style="max-width:220px">
+      <button class="btn" onclick="saveProj()">Poser ce cap</button>
+    </div>
+    <div id="p-list"></div>
+  </section>
+
+  <!-- CREATIONS -->
+  <section class="view" id="v-creations">
+    <h2>Créations</h2>
+    <p class="sub">Un livre, vos mémoires, une histoire inventée. La date de début d'écriture est gardée — le reste vous appartient.</p>
+    <div class="card">
+      <div class="row sans">
+        <div><label>Titre</label><input id="cr-titre" type="text" placeholder="Le titre de votre œuvre"></div>
+        <div><label>Type</label><select id="cr-type"><option>Livre / mémoires</option><option>Histoire inventée</option><option>Recueil (recettes, lettres…)</option><option>Autre</option></select></div>
+      </div>
+      <label>Premières lignes</label>
+      <textarea id="cr-txt" placeholder="Il était une fois — ou pas du tout…"></textarea>
+      <button class="btn" onclick="saveCrea()">Commencer cette œuvre</button>
+    </div>
+    <div id="cr-list"></div>
+  </section>
+
+  <!-- PROCHES -->
+  <section class="view" id="v-proches">
+    <h2>Mes proches</h2>
+    <p class="sub">Famille, amis, contacts — remplissez quand vous voulez, ou jamais. Facultatif.</p>
+    <div class="card">
+      <div class="row sans">
+        <div><label>Nom</label><input id="pr-nom" type="text" placeholder="Emma"></div>
+        <div><label>Lien</label><input id="pr-lien" type="text" placeholder="ma fille, mon ami…"></div>
+      </div>
+      <label>Note (facultatif)</label>
+      <input id="pr-note" type="text" class="sans" placeholder="Ce que vous voulez retenir de cette personne">
+      <button class="btn" onclick="saveProche()">Ajouter</button>
+      <div class="notice sans">🕊️ Si un jour vous choisissez de <strong>transmettre</strong> une partie de votre mémoire à l'un de vos proches, c'est à ce moment-là — et seulement là — qu'une vérification d'identité sera demandée.</div>
+    </div>
+    <div id="pr-list"></div>
+  </section>
+
+  <!-- TARIFS -->
+  <section class="view" id="v-tarifs">
+    <h2>Services & tarifs</h2>
+    <p class="sub">Six formules, du texte seul à l'accompagnement personnalisé. Changez de formule à tout moment.</p>
+    <div class="plans sans">
+      <div class="plan"><div class="num">Formule 1</div><h3>Textes</h3><p>Votre journal, vos souvenirs, vos projections et créations — en texte, datés automatiquement, chiffrés.</p><div class="price">Tarif communiqué à l'ouverture</div></div>
+      <div class="plan"><div class="num">Formule 2</div><h3>Textes + photos & vidéos</h3><p>Toute la formule 1, plus vos photos et vidéos, téléchargées depuis votre appareil.</p><div class="price">Tarif communiqué à l'ouverture</div></div>
+      <div class="plan"><div class="num">Formule 3</div><h3>Assistant de rédaction</h3><p>Une IA pour vous aider à raconter — uniquement si vous l'activez, et l'original brut est toujours conservé. Vos textes n'entraînent jamais de modèle.</p><div class="price">Tarif communiqué à l'ouverture</div></div>
+      <div class="plan"><div class="num">Formule 4</div><h3>Service juridique — Transmission</h3><p>Conditions de transmission définies en rendez-vous visio avec un notaire partenaire et notre responsable technique.</p><div class="price">Sur devis</div></div>
+      <div class="plan"><div class="num">Formule 5</div><h3>Mon livre</h3><p>Votre journal ou votre Création mis en page et imprimé en livre relié, une fois par an. Un objet à tenir, à offrir, à laisser.</p><div class="price">Tarif communiqué à l'ouverture</div></div>
+      <div class="plan"><div class="num">Formule 6</div><h3>Biographie accompagnée</h3><p>Des séances visio en tête-à-tête : on vous interviewe, on enregistre, on transcrit, et votre récit prend forme dans Créations.</p><div class="price">Sur devis</div></div>
+    </div>
+    <div class="notice sans" style="margin-top:20px">🤝 Un doute sur la formule ? <strong>30 minutes gratuites</strong>, en visio, pour préciser services et tarifs — jamais un robot. <button class="btn small ghost" onclick="rdv()" style="margin-left:8px">Réserver</button></div>
+  </section>
+
+</main>
+
+<footer class="sans">
+  <span>Prototype — vos données restent sur cet appareil (localStorage), rien n'est envoyé.</span>
+  <span>Mémoire Vivante · privacy by design · conservation fiduciaire 99 ans · <a href="legal.html" style="color:var(--accent-dark)">Mentions légales · Confidentialité · CGU</a></span>
+</footer>
+
+<script>
+/* ---------- utilitaires ---------- */
+const S=k=>JSON.parse(localStorage.getItem(k)||'[]');
+const P=(k,v)=>localStorage.setItem(k,JSON.stringify(v));
+const fdate=d=>new Date(d).toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
+const fshort=d=>new Date(d+'T12:00').toLocaleDateString('fr-FR',{day:'numeric',month:'long',year:'numeric'});
+const esc=t=>t.replace(/</g,'&lt;');
+let mood='😌';
+
+/* ---------- navigation ---------- */
+document.querySelectorAll('nav button').forEach(b=>b.onclick=()=>go(b.dataset.v));
+function go(v){
+  document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('active',b.dataset.v===v));
+  document.querySelectorAll('.view').forEach(s=>s.classList.toggle('active',s.id==='v-'+v));
+  renderAll();
+  window.scrollTo(0,0);
+}
+document.querySelectorAll('#moods button').forEach(b=>b.onclick=()=>{
+  document.querySelectorAll('#moods button').forEach(x=>x.classList.remove('sel'));
+  b.classList.add('sel'); mood=b.dataset.m;
+});
+
+/* ---------- journal ---------- */
+function saveJournal(){
+  const t=document.getElementById('j-txt').value.trim();
+  if(!t){alert('Écrivez quelques mots d\'abord 🙂');return}
+  const e=S('mv_journal'); e.unshift({t,mood,d:new Date().toISOString()}); P('mv_journal',e);
+  document.getElementById('j-txt').value=''; renderAll();
+}
+/* ---------- mémoire (double date) ---------- */
+function saveMemoire(){
+  const t=document.getElementById('m-txt').value.trim();
+  const ds=document.getElementById('m-date').value;
+  if(!t||!ds){alert('Le souvenir et sa date, s\'il vous plaît 🙂');return}
+  if(new Date(ds)>new Date()){alert('La date d\'un souvenir est dans le passé — pour l\'avenir, utilisez Projections 🧭');return}
+  const e=S('mv_memoire'); e.unshift({t,ds,d:new Date().toISOString()}); P('mv_memoire',e);
+  document.getElementById('m-txt').value=''; document.getElementById('m-date').value=''; renderAll();
+}
+/* ---------- projections ---------- */
+function saveProj(){
+  const t=document.getElementById('p-txt').value.trim();
+  const ds=document.getElementById('p-date').value;
+  if(!t||!ds){alert('Le plan et sa date visée, s\'il vous plaît 🙂');return}
+  const e=S('mv_proj'); e.unshift({t,ds,done:false,d:new Date().toISOString()}); P('mv_proj',e);
+  document.getElementById('p-txt').value=''; document.getElementById('p-date').value=''; renderAll();
+}
+function toggleProj(i){const e=S('mv_proj');e[i].done=!e[i].done;P('mv_proj',e);renderAll()}
+/* ---------- créations ---------- */
+function saveCrea(){
+  const titre=document.getElementById('cr-titre').value.trim();
+  const t=document.getElementById('cr-txt').value.trim();
+  if(!titre||!t){alert('Un titre et quelques lignes 🙂');return}
+  const e=S('mv_crea'); e.unshift({titre,type:document.getElementById('cr-type').value,t,d:new Date().toISOString()}); P('mv_crea',e);
+  document.getElementById('cr-titre').value='';document.getElementById('cr-txt').value=''; renderAll();
+}
+/* ---------- proches ---------- */
+function saveProche(){
+  const nom=document.getElementById('pr-nom').value.trim();
+  if(!nom){alert('Au moins un nom 🙂');return}
+  const e=S('mv_proches'); e.unshift({nom,lien:document.getElementById('pr-lien').value.trim(),note:document.getElementById('pr-note').value.trim(),d:new Date().toISOString()}); P('mv_proches',e);
+  ['pr-nom','pr-lien','pr-note'].forEach(i=>document.getElementById(i).value=''); renderAll();
+}
+/* ---------- inscription ---------- */
+function inscrire(){
+  const nom=document.getElementById('c-nom').value.trim(), email=document.getElementById('c-email').value.trim();
+  if(!nom||!email){alert('Le nom et l\'email suffisent — le reste est libre 🙂');return}
+  const e=S('mv_contacts');
+  e.unshift({nom,email,adresse:document.getElementById('c-adresse').value.trim(),tel:document.getElementById('c-tel').value.trim(),libre:document.getElementById('c-libre').value.trim(),d:new Date().toISOString()});
+  P('mv_contacts',e);
+  ['c-nom','c-email','c-adresse','c-tel','c-libre'].forEach(i=>document.getElementById(i).value='');
+  alert('Merci '+nom+' — vous êtes sur la liste. En production : email de bienvenue via le workflow n8n.');
+}
+/* ---------- rendus ---------- */
+function list(el,arr,tpl,vide){
+  document.getElementById(el).innerHTML = arr.length ? arr.map(tpl).join('') :
+    `<div class="empty"><div class="big">🕊️</div><p>${vide}</p></div>`;
+}
+function renderAll(){
+  list('j-list',S('mv_journal'),x=>`<div class="entry"><div class="meta sans"><span class="mood">${x.mood}</span><span>${fdate(x.d)}</span></div><p>${esc(x.t)}</p></div>`,
+    'Votre journal est encore vide.<br>Un souvenir, une pensée, un moment ordinaire qui compte.');
+  list('m-list',S('mv_memoire'),x=>`<div class="entry"><div class="meta sans"><span class="tag">🗝️ Souvenir du ${fshort(x.ds)}</span><span>écrit le ${fdate(x.d)}</span></div><p>${esc(x.t)}</p></div>`,
+    'Aucun souvenir déposé pour l\'instant — ils reviendront, la page les attend.');
+  list('p-list',S('mv_proj'),(x,i)=>`<div class="entry"><div class="meta sans"><span>${fdate(x.d)}</span><span class="tag ${x.done?'done':''}">${x.done?'✔ Réalisé':'🧭 Visé pour le '+fshort(x.ds)}</span><button class="btn small ghost sans" onclick="toggleProj(${i})">${x.done?'Rouvrir':'Marquer réalisé'}</button></div><p>${esc(x.t)}</p></div>`,
+    'Aucun cap posé. Quel est le prochain ?');
+  list('cr-list',S('mv_crea'),x=>`<div class="entry"><div class="meta sans"><span class="tag">✒️ ${esc(x.type)}</span><span>commencé le ${fdate(x.d)}</span></div><h3>${esc(x.titre)}</h3><p>${esc(x.t)}</p></div>`,
+    'Aucune œuvre commencée. La première ligne est la plus courte à écrire.');
+  list('pr-list',S('mv_proches'),x=>`<div class="entry"><div class="meta sans"><span class="tag">👥 ${esc(x.lien||'proche')}</span></div><h3>${esc(x.nom)}</h3>${x.note?`<p>${esc(x.note)}</p>`:''}</div>`,
+    'Personne pour l\'instant — et c\'est très bien aussi.');
+}
+/* ---------- FAQ (extrait des 45) ---------- */
+const FAQ=[
+ ["Qui peut lire mon journal ?","Vous seul·e. Vos contenus sont chiffrés ; ni notre équipe ni nos prestataires ne peuvent les lire."],
+ ["Comment fonctionnent les dates ?","Chaque entrée reçoit automatiquement la date du jour. Sur la page Mémoire, vous choisissez en plus la vraie date du souvenir."],
+ ["Où sont stockées mes données ?","En France et en Suisse, chez des hébergeurs certifiés. Jamais hors d'Europe."],
+ ["Une IA lit-elle mes textes ?","Uniquement si vous activez la formule 3, avec consentement explicite. Vos textes n'entraînent jamais de modèle."],
+ ["Vendez-vous mes données ?","Jamais. Notre modèle est l'abonnement, pas la publicité."],
+ ["Le chat est-il un robot ?","Oui, et il le dit. Questions simples seulement — pour le reste, un humain prend le relais."],
+ ["Puis-je transmettre ma mémoire à mes proches ?","Oui, sur devis : les conditions se définissent en rendez-vous visio avec un notaire partenaire et notre responsable technique."],
+ ["Le rendez-vous de 30 minutes est-il vraiment gratuit ?","Oui, sans condition. C'est un engagement public — jamais automatisé."]
+];
+document.getElementById('faq').innerHTML=FAQ.map(([q,r])=>`<details><summary>${q}</summary><p>${r}</p></details>`).join('');
+/* ---------- démo ---------- */
+function demo(){alert('Disponible dans la version complète — ce prototype démontre le parcours.')}
+function rdv(){alert('En production : agenda Cal.com — 30 minutes gratuites, en visio, jamais un robot.')}
+renderAll();
+</script>
+</body>
+</html>
