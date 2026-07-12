@@ -8,10 +8,10 @@
 <title>Fil Vivant — Votre vie, écrite jour après jour</title>
 <style>
   :root{
-    --bg:#f5eedd; --card:#fffdf6; --ink:#231c12; --muted:#7d7161;
-    --accent:#a9772f; --accent-dark:#7d5716; --line:#e2d5ba;
-    --green:#4e7350; --soft:#eee3c9;
-    --cire:#a63b26; --cire-dark:#7e2b1a; --night:#3a342b; --paper:#f5eedd;
+    --bg:#f2f0ed; --card:#fffefd; --ink:#29252e; --muted:#7c7580;
+    --accent:#7b6a9e; --accent-dark:#5d4f7e; --line:#e2dee6;
+    --green:#4e7350; --soft:#ede9f0;
+    --cire:#d66a4a; --cire-dark:#b0523a; --night:#37323f; --paper:#f2f0ed;
   }
   *{box-sizing:border-box;margin:0;padding:0}
   body{font-family:Georgia,'Times New Roman',serif;background:var(--bg);color:var(--ink);line-height:1.6}
@@ -35,7 +35,7 @@
 
   .card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:22px;margin-bottom:16px}
 
-  textarea,input,select{width:100%;border:1px solid var(--line);border-radius:8px;padding:12px;font-family:inherit;font-size:15px;background:#fffdf9;color:var(--ink)}
+  textarea,input,select{width:100%;border:1px solid var(--line);border-radius:8px;padding:12px;font-family:inherit;font-size:15px;background:#fdfcfd;color:var(--ink)}
   textarea{min-height:120px;resize:vertical}
   label{display:block;font-size:13px;color:var(--muted);margin:14px 0 6px;text-transform:uppercase;letter-spacing:.8px}
 
@@ -58,7 +58,7 @@
   .empty{text-align:center;padding:40px 20px;color:var(--muted)}
   .empty .big{font-size:40px;margin-bottom:12px}
 
-  .notice{font-size:13px;background:#f4f0e6;border:1px solid var(--line);border-radius:8px;padding:12px 16px;color:var(--muted);margin-top:16px}
+  .notice{font-size:13px;background:#efecf2;border:1px solid var(--line);border-radius:8px;padding:12px 16px;color:var(--muted);margin-top:16px}
   .notice strong{color:var(--accent-dark)}
 
   .attach{display:flex;gap:10px;margin-top:10px;flex-wrap:wrap}
@@ -66,20 +66,20 @@
 
   /* Accueil */
   .hero{background:var(--night);color:var(--paper);border-radius:16px;text-align:center;padding:52px 28px 46px;margin:6px 0 26px}
-  .hero .kicker{font-style:italic;color:#d8b25e;font-size:17px}
+  .hero .kicker{font-style:italic;color:#c9a86a;font-size:17px}
   .hero h1{font-weight:normal;font-size:40px;line-height:1.2;margin:14px 0 0}
-  .hero h1 em{color:#d8b25e;font-style:normal}
-  .hero p{color:#cfc4ae;max-width:620px;margin:16px auto 0;font-size:16.5px}
-  .hero .btn.ghost{color:#f0e6d2;border-color:#8a7a5e}
+  .hero h1 em{color:#c9a86a;font-style:normal}
+  .hero p{color:#c9c2ce;max-width:620px;margin:16px auto 0;font-size:16.5px}
+  .hero .btn.ghost{color:#ece8f0;border-color:#857c92}
 
   .why{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px;margin:0 0 10px}
   .why .w{background:var(--card);border:1px solid var(--line);border-top:3px solid var(--accent);border-radius:12px;padding:20px}
   .why .w h3{font-size:16.5px;margin-bottom:8px}
   .why .w p{font-size:14px;color:var(--muted)}
 
-  .verrou{background:var(--cire);color:#fff;border-radius:14px;text-align:center;padding:30px 24px;margin:16px 0 28px}
+  .verrou{background:var(--accent-dark);color:#fff;border-radius:14px;text-align:center;padding:30px 24px;margin:16px 0 28px}
   .verrou .big{font-size:26px;line-height:1.3}
-  .verrou p{color:#f3d9d0;font-size:14.5px;margin-top:10px;max-width:640px;margin-left:auto;margin-right:auto}
+  .verrou p{color:#ddd5e8;font-size:14.5px;margin-top:10px;max-width:640px;margin-left:auto;margin-right:auto}
   .manifesto{border-left:3px solid var(--accent);background:var(--card);border-radius:0 12px 12px 0;padding:22px 26px;margin:8px 0 4px}
   .manifesto p{font-size:16.5px;line-height:1.7}
   .manifesto p+p{margin-top:10px}
@@ -89,7 +89,7 @@
   .svc .ico{font-size:26px;margin-bottom:8px}
   .svc p{font-size:13.5px;color:var(--muted)}
   .svc .devis{display:inline-block;margin-top:8px;font-size:11px;background:var(--soft);border-radius:12px;padding:2px 10px;color:var(--accent-dark)}
-  .pledge{border:1px solid var(--accent);background:#fffdf9;border-radius:12px;padding:20px 22px;margin:10px 0 24px}
+  .pledge{border:1px solid var(--accent);background:#fdfcfb;border-radius:12px;padding:20px 22px;margin:10px 0 24px}
   .pledge h3{color:var(--accent-dark)}
   details{border-bottom:1px solid var(--line);padding:10px 4px}
   details summary{cursor:pointer;font-size:15px;font-weight:600}
@@ -146,9 +146,9 @@
     </div>
 
     <div class="manifesto">
-      <p>Les événements sont l'écorce d'une vie ; la sève, ce sont les émotions, les ressentis, les espérances. C'est elle que l'on garde ici.</p>
-      <p>Un fil relie vos trois temps : la mémoire pour le passé, le journal pour le présent, les projections pour l'avenir. On s'y laisse porter d'une rive à l'autre, sans jamais cesser d'habiter le présent.</p>
-      <p>Et ce fil transmettra qui vous fûtes et qui vous êtes, tels que vous l'avez écrit : face aux algorithmes qui reformulent tout, vos mots restent vos mots.</p>
+      <p>Les événements sont l'écorce d'une vie ; la sève, ce sont les émotions, les ressentis, les espérances. Ici, on garde l'arbre entier.</p>
+      <p>Un fil relie vos trois temps : la mémoire pour le passé, le journal pour le présent, les projections pour l'avenir. On le suit dans un sens ou dans l'autre, sans jamais cesser d'habiter le présent.</p>
+      <p>Et ce fil transmettra qui vous fûtes et qui vous êtes, dans vos propres mots. Les algorithmes reformulent tout ; ici, vos mots restent vos mots.</p>
     </div>
 
     <div class="grid sans">
@@ -160,6 +160,17 @@
       <div class="svc"><div class="ico">✨</div><h3>Jumeau numérique</h3><p>Un avatar conversationnel nourri uniquement de ce que vous avez confié. Encadré par un comité éthique, jamais activé sans votre décision écrite.</p><span class="devis">Sur devis</span></div>
     </div>
 
+    <div class="grid sans" style="margin-top:4px">
+      <div class="svc" style="border-top:3px solid var(--accent)">
+        <h3>Transmettre plus qu'un patrimoine</h3>
+        <p>Vous souhaitez transmettre davantage que de l'argent ou des biens : une mémoire sous toutes ses formes, photos, vidéos, mots, que vous seul décidez de partager. Les dizaines de photos prises chaque jour et qui dorment dans un téléphone peuvent rester vivantes, et être transmises. Et cette mémoire peut aussi être un message pour vous-même, plus tard : redonner substance à une mémoire qui faiblit.</p>
+      </div>
+      <div class="svc" style="border-top:3px solid var(--accent)">
+        <h3>Pourquoi un service payant ?</h3>
+        <p>Parce que vous êtes le client, pas le produit : aucune publicité, aucune revente, aucun algorithme nourri de vos données. Parce que la transmission est organisée, jusqu'au juridique : directives sur vos données (article 85 de la loi Informatique et Libertés), notaire partenaire. Et parce que votre mémoire doit survivre à vos appareils : conservation fiduciaire de 99 ans.</p>
+      </div>
+    </div>
+
     <div class="verrou">
       <div class="big">Personne ne peut se souvenir à votre place.</div>
       <p class="sans">Écrire votre vie : cela ne se délègue pas. Notre métier : la garder sans pouvoir la lire, la retravailler avec vous quand vous nous ouvrez la porte, la transmettre au jour et aux personnes que vous avez choisis. En France et en Suisse, datée automatiquement, conservée 99 ans.</p>
@@ -169,8 +180,7 @@
       <h3>Ce que nous n'automatiserons jamais</h3>
       <p style="font-size:14px;color:var(--muted);margin-top:6px">
         1. Le rendez-vous visio qui définit vos conditions particulières de transmission : toujours avec un notaire et notre responsable technique.<br>
-        2. Le rendez-vous de 30 minutes, gratuit, pour préciser de vive voix les services et les tarifs.<br>
-        Nous l'écrivons ici pour que vous puissiez nous le rappeler.
+        2. Le rendez-vous de 30 minutes, gratuit, pour préciser de vive voix les services et les tarifs.
       </p>
     </div>
 
@@ -194,7 +204,7 @@
     <div class="card">
       <h3>Questions fréquentes</h3>
       <div class="sans" id="faq"></div>
-      <p class="sans" style="font-size:13px;color:var(--muted);margin-top:10px">45 questions-réponses au total dans la FAQ complète.</p>
+      <a class="btn ghost sans" href="faq.html" style="font-size:14px">Lire les 45 questions-réponses</a>
     </div>
   </section>
 
@@ -317,7 +327,7 @@
 
 <footer class="sans">
   <span>Prototype : vos données restent sur cet appareil (localStorage), rien n'est envoyé.</span>
-  <span>Fil Vivant · privacy by design · conservation fiduciaire 99 ans · <a href="legal.html" style="color:var(--accent-dark)">Mentions légales · Confidentialité · CGU</a></span>
+  <span>Fil Vivant · privacy by design · conservation fiduciaire 99 ans · <a href="faq.html" style="color:var(--accent-dark)">FAQ</a> · <a href="legal.html" style="color:var(--accent-dark)">Mentions légales · Confidentialité · CGU</a></span>
 </footer>
 
 <script>
@@ -434,7 +444,7 @@ const FAQ=[
  ["Vendez-vous mes données ?","Jamais. Notre modèle est l'abonnement, pas la publicité."],
  ["Le chat est-il un robot ?","Oui, et il le dit. Questions simples seulement ; pour le reste, un humain prend le relais."],
  ["Puis-je transmettre ma mémoire à mes proches ?","Oui, sur devis : les conditions se définissent en rendez-vous visio avec un notaire partenaire et notre responsable technique."],
- ["Le rendez-vous de 30 minutes est-il vraiment gratuit ?","Oui, sans condition. C'est écrit sur la page d'accueil : jamais automatisé, et vous pouvez nous le rappeler."]
+ ["Le rendez-vous de 30 minutes est-il vraiment gratuit ?","Oui, sans condition. Préciser les services et les tarifs de vive voix ne sera jamais automatisé."]
 ];
 document.getElementById('faq').innerHTML=FAQ.map(([q,r])=>`<details><summary>${q}</summary><p>${r}</p></details>`).join('');
 /* ---------- démo ---------- */
